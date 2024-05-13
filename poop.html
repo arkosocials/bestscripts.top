@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Generator</title>
+    <script>
+        function generatePage() {
+            var title = document.getElementById("title").value;
+            var code = document.getElementById("code").value;
+
+            // Create a Markdown content
+            var markdownContent = "---\n";
+            markdownContent += "title: " + title + "\n";
+            markdownContent += "---\n";
+            markdownContent += "```python\n";
+            markdownContent += code + "\n";
+            markdownContent += "```\n";
+
+            // Create a Blob object to store the content
+            var blob = new Blob([markdownContent], { type: "text/markdown" });
+
+            // Create a temporary link element
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = title + ".md";
+            a.click();
+        }
+    </script>
+</head>
+<body>
+    <h1>Page Generator</h1>
+    <form>
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title"><br><br>
+        <label for="code">Code:</label><br>
+        <textarea id="code" name="code" rows="4" cols="50"></textarea><br><br>
+        <button type="button" onclick="generatePage()">Generate Page</button>
+    </form>
+</body>
+</html>
